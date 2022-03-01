@@ -7,16 +7,30 @@
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='1' y2='0'%3E%3Cstop offset='0' stop-color='%230FF'/%3E%3Cstop offset='1' stop-color='%23CF6'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23F00'/%3E%3Cstop offset='1' stop-color='%23FC0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='%23FFF' fill-opacity='0' stroke-miterlimit='10'%3E%3Cg stroke='url(%23a)' stroke-width='2'%3E%3Cpath transform='translate(-96.25 22) rotate(13.75 1409 581) scale(1.055)' d='M1409 581 1450.35 511 1490 581z'/%3E%3Ccircle stroke-width='4' transform='translate(-55 55) rotate(16.5 800 450) scale(1.028)' cx='500' cy='100' r='40'/%3E%3Cpath transform='translate(49.5 -165) rotate(165 401 736) scale(1.028)' d='M400.86 735.5h-83.73c0-23.12 18.74-41.87 41.87-41.87S400.86 712.38 400.86 735.5z'/%3E%3C/g%3E%3Cg stroke='url(%23b)' stroke-width='4'%3E%3Cpath transform='translate(330 -22) rotate(5.5 150 345) scale(0.945)' d='M149.8 345.2 118.4 389.8 149.8 434.4 181.2 389.8z'/%3E%3Crect stroke-width='8' transform='translate(-220 -137.5) rotate(198 1089 759)' x='1039' y='709' width='100' height='100'/%3E%3Cpath transform='translate(-330 110) rotate(33 1400 132)' d='M1426.8 132.4 1405.7 168.8 1363.7 168.8 1342.7 132.4 1363.7 96 1405.7 96z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+    }
+
+    .my-card {
+      border: 1px solid lightgray;
+      border-radius: 3px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container my-5">
-    <h1 class="text-center">Liste des propositions</h1>
-    <div class="text-center my-5">
-      <div class="btn btn-success" id="my-btn">Generate</div>
+  <div class="container">
+    <div class="text-center my-4 w-100">
+      <img width="100" src="https://dwj199mwkel52.cloudfront.net/assets/lewagon-logo-square-b6124eb974be375884558e4464efce48a9b5664f18422768156364363ecdd1fc.png" alt="logo lewagon">
+      <h1 class="text-center">Let's brainstorm</h1>
+      <div class="mt-4 btn btn-danger px-4 py-2" style="background-color: #FD1115;" id="my-btn">Generate</div>
     </div>
-
-    <ul id="my-container"></ul>
+    <div class="row">
+      <div class="col-md-6 offset-md-3" id="my-container"></div>
+    </div>
   </div>
 <script>
   var targets = [
@@ -121,6 +135,13 @@ var supports = [
   'un Chatbot'
 ];
 
+var colors = [
+'#A8CBFE',
+'#CABBE9',
+'#F2B5BC',
+'#FEE9A6',
+'#AFEBDA'
+]
 
 var container = document.querySelector('#my-container');
 var btn = document.querySelector('#my-btn')
@@ -128,7 +149,16 @@ var btn = document.querySelector('#my-btn')
 btn.addEventListener('click', (e) => {
   container.innerHTML = "";
   for (let i = 0; i < 5; i++) {
-    var line = `<li>Créer ${supports[Math.floor(Math.random() * supports.length)]} sur le thème ${themes[Math.floor(Math.random() * themes.length)]} pour les ${targets[Math.floor(Math.random() * targets.length)]} avec comme contrainte technique ${technicalContraints[Math.floor(Math.random() * technicalContraints.length)]}</li>`
+    var su_index = Math.floor(Math.random() * supports.length)
+    var th_index = Math.floor(Math.random() * themes.length)
+    var ta_index = Math.floor(Math.random() * targets.length)
+    var tc_index = Math.floor(Math.random() * technicalContraints.length)
+    var line = `
+    <div class="my-card py-3 px-5 my-3" style="background: ${colors[i]}">
+      Créer <b>${supports[su_index]}</b> sur le thème <b>${themes[th_index]}</b>
+      pour les <b>${targets[ta_index]}</b>
+      avec comme contrainte technique <b>${technicalContraints[tc_index]}</b>
+    </div>`
     container.insertAdjacentHTML('beforeend', line)
   }
 })
